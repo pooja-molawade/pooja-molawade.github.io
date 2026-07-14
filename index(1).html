@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pooja Molawade — Mobile Application Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10182B;
+    --ink-soft:#1B2540;
+    --paper:#F6F2E9;
+    --paper-dim:#EDE7D8;
+    --teal:#35C4A1;
+    --coral:#FF6F59;
+    --slate:#5B6478;
+    --white:#FFFFFF;
+    --line: rgba(16,24,43,0.12);
+    --line-dark: rgba(246,242,233,0.14);
+    --radius: 20px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{padding:96px 24px;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  ::selection{background:var(--teal); color:var(--ink);}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(246,242,233,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1080px; margin:0 auto; padding:18px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{font-family:'Space Grotesk'; font-weight:700; font-size:1.05rem; display:flex; align-items:center; gap:8px;}
+  .brand .dot{width:9px; height:9px; border-radius:3px; background:var(--teal); display:inline-block;}
+  .nav-links{display:flex; gap:32px; font-size:0.92rem; color:var(--slate);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--ink); color:var(--paper); padding:9px 18px; border-radius:100px;
+    font-size:0.85rem; font-weight:500;
+  }
+  .nav-cta:hover{background:var(--teal); color:var(--ink);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:760px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink); color:var(--paper);
+    padding:160px 24px 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .widget-bg{
+    position:absolute; inset:0; z-index:1; opacity:0.5; pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--teal);
+    letter-spacing:0.06em; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--teal);}
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem); line-height:1.05; margin-bottom:22px;
+  }
+  .hero h1 span{color:var(--teal);}
+  .hero p.lead{
+    font-size:1.1rem; color:rgba(246,242,233,0.72); max-width:520px; margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--teal); color:var(--ink); padding:13px 26px; border-radius:100px;
+    font-weight:600; font-size:0.92rem; display:inline-block; border:1px solid var(--teal);
+  }
+  .btn-primary:hover{background:transparent; color:var(--teal);}
+  .btn-ghost{
+    border:1px solid rgba(246,242,233,0.3); color:var(--paper); padding:13px 26px; border-radius:100px;
+    font-weight:500; font-size:0.92rem; display:inline-block;
+  }
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  .hero-stats{display:flex; gap:36px; margin-top:48px;}
+  .hero-stats .stat-num{font-family:'Space Grotesk'; font-size:1.7rem; font-weight:700; color:var(--white);}
+  .hero-stats .stat-label{font-size:0.78rem; color:rgba(246,242,233,0.55); margin-top:2px;}
+
+  /* Phone mockup - signature element */
+  .phone-wrap{display:flex; justify-content:center;}
+  .phone{
+    width:270px; height:552px; background:var(--ink-soft);
+    border-radius:40px; padding:14px; border:1px solid rgba(246,242,233,0.15);
+    box-shadow:0 40px 80px -20px rgba(0,0,0,0.6);
+    position:relative;
+  }
+  .phone-screen{
+    width:100%; height:100%; background:linear-gradient(180deg, #16213B 0%, #0F1B2D 100%);
+    border-radius:28px; overflow:hidden; position:relative;
+    display:flex; flex-direction:column;
+  }
+  .status-bar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 20px 6px; font-family:'JetBrains Mono'; font-size:0.7rem; color:rgba(246,242,233,0.6);
+  }
+  .notch{
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    width:110px; height:22px; background:var(--ink-soft); border-radius:0 0 16px 16px; z-index:3;
+  }
+  .app-splash{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    padding:20px;
+  }
+  .app-logo{
+    width:64px; height:64px; border-radius:18px; background:var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk'; font-weight:700; font-size:1.5rem; color:var(--ink);
+    margin-bottom:14px;
+    animation: pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.05); }
+  }
+  .app-name{font-family:'Space Grotesk'; font-weight:600; color:var(--paper); font-size:1.05rem;}
+  .app-tag{font-family:'JetBrains Mono'; font-size:0.68rem; color:var(--teal); letter-spacing:0.04em;}
+  .widget-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:0 22px 26px;
+  }
+  .widget-chip{
+    background:rgba(246,242,233,0.06); border:1px solid rgba(246,242,233,0.1);
+    border-radius:12px; padding:10px 6px; text-align:center;
+    font-family:'JetBrains Mono'; font-size:0.6rem; color:rgba(246,242,233,0.65);
+  }
+  .widget-chip .ico{
+    width:22px; height:22px; border-radius:6px; background:var(--coral); margin:0 auto 6px;
+    opacity:0.85;
+  }
+  .widget-chip:nth-child(2) .ico{background:var(--teal);}
+  .widget-chip:nth-child(4) .ico{background:#7C9CFF;}
+  .widget-chip:nth-child(6) .ico{background:var(--teal);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-head{margin-bottom:52px; max-width:640px;}
+  .section-head .eyebrow{color:var(--coral);}
+  .section-head .eyebrow::before{background:var(--coral);}
+  .section-head h2{font-size:clamp(1.7rem, 3vw, 2.3rem);}
+  .light .eyebrow{color:var(--slate);}
+  section.light-eyebrow .eyebrow{color:var(--coral);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-grid p{color:var(--slate); font-size:1.02rem; margin-bottom:16px;}
+  .edu-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px;
+  }
+  .edu-card .eyebrow{color:var(--coral); margin-bottom:10px;}
+  .edu-card .eyebrow::before{background:var(--coral);}
+  .edu-card h4{font-size:1.1rem; margin-bottom:4px;}
+  .edu-card .meta{color:var(--slate); font-size:0.88rem;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:2px;
+    background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+  }
+  .skill-cell{background:var(--white); padding:26px;}
+  .skill-cell h4{
+    font-family:'JetBrains Mono'; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--slate); margin-bottom:14px; font-weight:500;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'JetBrains Mono'; font-size:0.76rem; padding:6px 12px; border-radius:100px;
+    background:var(--paper-dim); border:1px solid var(--line); color:var(--ink);
+  }
+  @media (max-width:760px){
+    .skills-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- EXPERIENCE (dark timeline) ---------- */
+  .exp{background:var(--ink); color:var(--paper);}
+  .exp .section-head .eyebrow{color:var(--teal);}
+  .exp .section-head .eyebrow::before{background:var(--teal);}
+  .exp .section-head p{color:rgba(246,242,233,0.6);}
+  .timeline{border-left:1px solid rgba(246,242,233,0.18); padding-left:36px; display:flex; flex-direction:column; gap:52px;}
+  .tl-item{position:relative;}
+  .tl-item::before{
+    content:''; position:absolute; left:-42px; top:4px; width:11px; height:11px; border-radius:3px;
+    background:var(--teal); border:2px solid var(--ink);
+  }
+  .tl-item.current::before{background:var(--coral);}
+  .tl-role{font-size:1.25rem; margin-bottom:4px;}
+  .tl-meta{
+    font-family:'JetBrains Mono'; font-size:0.78rem; color:var(--teal); margin-bottom:14px;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .tl-item.current .tl-meta{color:var(--coral);}
+  .tl-meta .pill{
+    border:1px solid rgba(246,242,233,0.2); padding:2px 10px; border-radius:100px; color:rgba(246,242,233,0.75);
+  }
+  .tl-list{list-style:none; color:rgba(246,242,233,0.68); font-size:0.95rem; display:flex; flex-direction:column; gap:8px;}
+  .tl-list li{padding-left:18px; position:relative;}
+  .tl-list li::before{content:'—'; position:absolute; left:0; color:rgba(246,242,233,0.35);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .proj-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; display:flex; flex-direction:column; gap:14px; transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .proj-card:hover{transform:translateY(-4px); box-shadow:0 20px 40px -18px rgba(16,24,43,0.25);}
+  .proj-top{display:flex; align-items:center; justify-content:space-between;}
+  .proj-icon{
+    width:38px; height:38px; border-radius:10px; background:var(--ink);
+    display:flex; align-items:center; justify-content:center; color:var(--teal); font-family:'Space Grotesk'; font-weight:700;
+  }
+  .proj-domain{
+    font-family:'JetBrains Mono'; font-size:0.68rem; color:var(--coral); text-transform:uppercase; letter-spacing:0.04em;
+    border:1px solid var(--line); padding:4px 10px; border-radius:100px;
+  }
+  .proj-card h4{font-size:1.15rem;}
+  .proj-card p{color:var(--slate); font-size:0.93rem;}
+  .proj-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:6px;}
+  .proj-tags .tag{font-size:0.7rem; padding:4px 10px;}
+  @media (max-width:760px){
+    .proj-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact{background:var(--ink); color:var(--paper); text-align:center;}
+  .contact .eyebrow{justify-content:center; color:var(--teal);}
+  .contact .eyebrow::before{background:var(--teal);}
+  .contact h2{font-size:clamp(2rem,4vw,2.8rem); max-width:680px; margin:0 auto 20px;}
+  .contact p{color:rgba(246,242,233,0.65); max-width:480px; margin:0 auto 36px;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .contact-links a{
+    border:1px solid rgba(246,242,233,0.2); padding:12px 22px; border-radius:100px;
+    font-size:0.9rem; display:flex; align-items:center; gap:8px;
+  }
+  .contact-links a:hover{border-color:var(--teal); color:var(--teal);}
+  footer{
+    padding:28px 24px; text-align:center; font-size:0.8rem; color:var(--slate);
+    background:var(--paper); border-top:1px solid var(--line);
+  }
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr; text-align:left;}
+    .phone-wrap{order:-1; transform:scale(0.85); margin-bottom:-20px;}
+    .about-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand"><span class="dot"></span>Pooja Molawade</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <svg class="widget-bg" viewBox="0 0 1080 620" xmlns="http://www.w3.org/2000/svg">
+    <rect x="600" y="40" width="420" height="560" rx="24" fill="none" stroke="rgba(246,242,233,0.08)" stroke-width="1"/>
+    <rect x="640" y="90" width="340" height="140" rx="16" fill="none" stroke="rgba(53,196,161,0.18)" stroke-width="1" stroke-dasharray="4 5"/>
+    <rect x="660" y="260" width="150" height="90" rx="12" fill="none" stroke="rgba(246,242,233,0.08)" stroke-width="1"/>
+    <rect x="830" y="260" width="150" height="90" rx="12" fill="none" stroke="rgba(246,242,233,0.08)" stroke-width="1"/>
+    <rect x="660" y="380" width="320" height="60" rx="10" fill="none" stroke="rgba(255,111,89,0.15)" stroke-width="1" stroke-dasharray="4 5"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Mobile Application Developer</div>
+      <h1>Building cross-platform apps that <span>ship</span>, <span>scale</span> &amp; stay secure.</h1>
+      <p class="lead">5+ years turning Flutter into real products across healthcare, education, and government — from Bluetooth diagnostics to nationwide welfare schemes.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#projects">View projects</a>
+        <a class="btn-ghost" href="#contact">Contact me</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years experience</div>
+        </div>
+        <div>
+          <div class="stat-num">5</div>
+          <div class="stat-label">Production apps shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Domains: health, edu, govt</div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="phone-screen">
+          <div class="status-bar">
+            <span>9:41</span>
+            <span>flutter run --release</span>
+          </div>
+          <div class="app-splash">
+            <div class="app-logo">PM</div>
+            <div class="app-name">Pooja Molawade</div>
+            <div class="app-tag">// mobile_developer.dart</div>
+          </div>
+          <div class="widget-grid">
+            <div class="widget-chip"><div class="ico"></div>Flutter</div>
+            <div class="widget-chip"><div class="ico"></div>Dart</div>
+            <div class="widget-chip"><div class="ico"></div>Firebase</div>
+            <div class="widget-chip"><div class="ico"></div>REST</div>
+            <div class="widget-chip"><div class="ico"></div>GraphQL</div>
+            <div class="widget-chip"><div class="ico"></div>CI/CD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">About</div>
+      <h2>Profile</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Mobile Application Developer with 5+ years of experience developing secure, scalable cross-platform applications using Flutter.</p>
+        <p>Skilled in full-cycle mobile development, API integrations, and cloud-based solutions — delivering high-performance apps across Healthcare, Education, and Government domains, from Bluetooth-connected diagnostic devices to nationwide welfare-scheme platforms.</p>
+        <p>Based in Pune, Maharashtra, India, and currently building a government services application at No Brain IT Solutions.</p>
+      </div>
+      <div class="edu-card">
+        <div class="eyebrow">Education</div>
+        <h4>Bachelor of Engineering</h4>
+        <div class="meta">Computer Science and Engineering · 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--paper-dim);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Skills &amp; technologies</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <h4>Mobile Development</h4>
+        <div class="tag-row">
+          <span class="tag">Flutter</span><span class="tag">Performance Optimization</span><span class="tag">Responsive UI</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <h4>Languages</h4>
+        <div class="tag-row"><span class="tag">Dart</span><span class="tag">Java</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>State Management</h4>
+        <div class="tag-row"><span class="tag">Provider</span><span class="tag">GetX</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>Backend &amp; API</h4>
+        <div class="tag-row"><span class="tag">REST APIs</span><span class="tag">GraphQL</span><span class="tag">Firebase Cloud Functions</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>Firebase &amp; Cloud</h4>
+        <div class="tag-row"><span class="tag">Authentication</span><span class="tag">Firestore</span><span class="tag">Push Notifications</span><span class="tag">Analytics</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>Databases</h4>
+        <div class="tag-row"><span class="tag">Firestore</span><span class="tag">SQLite</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>DevOps &amp; Version Control</h4>
+        <div class="tag-row"><span class="tag">Git</span><span class="tag">GitHub Actions</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>Dev Tools</h4>
+        <div class="tag-row"><span class="tag">Android Studio</span><span class="tag">Xcode</span><span class="tag">Postman</span><span class="tag">Swagger</span><span class="tag">Jira</span><span class="tag">Azure DevOps</span></div>
+      </div>
+      <div class="skill-cell">
+        <h4>Release &amp; Collaboration</h4>
+        <div class="tag-row"><span class="tag">App Store Deploy</span><span class="tag">Play Store Deploy</span><span class="tag">UI/UX Collaboration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="exp" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Career</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item current">
+        <div class="tl-role">Flutter Developer</div>
+        <div class="tl-meta">
+          <span>No Brain IT Solutions Pvt. Ltd.</span>
+          <span class="pill">Oct 2025 — Present</span>
+        </div>
+        <ul class="tl-list">
+          <li>Developed and maintained a cross-platform mobile application for a Government project, supporting both Android and iOS.</li>
+          <li>Integrated REST APIs to enable secure communication between the app and backend services.</li>
+          <li>Built responsive, user-friendly interfaces with consistent performance across devices and screen sizes.</li>
+          <li>Collaborated with backend and QA teams on API integration, debugging, and performance optimization.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Flutter Developer</div>
+        <div class="tl-meta">
+          <span>Sciverse Solutions Pvt. Ltd.</span>
+          <span class="pill">Dec 2024 — Oct 2025</span>
+        </div>
+        <ul class="tl-list">
+          <li>Developed healthcare mobile applications focused on secure patient data handling, reliability, and smooth UX.</li>
+          <li>Implemented Firebase Authentication and Cloud Firestore for secure login and real-time medical-record sync.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Software Developer</div>
+        <div class="tl-meta">
+          <span>Xtensible Software Technology Pvt. Ltd.</span>
+          <span class="pill">Oct 2021 — Dec 2024</span>
+        </div>
+        <ul class="tl-list">
+          <li>Developed cross-platform apps using Flutter for education platforms with scalable, interactive learning experiences.</li>
+          <li>Integrated RESTful APIs and GraphQL services for secure, real-time data exchange with backend systems.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Selected work</div>
+      <h2>Projects</h2>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">01</div>
+          <div class="proj-domain">Government</div>
+        </div>
+        <h4>Government Schemes Management App</h4>
+        <p>Cross-platform Flutter app supporting government welfare and public service schemes, with ongoing feature development, API integration, and performance tuning for Android and iOS.</p>
+        <div class="proj-tags">
+          <span class="tag">Flutter</span><span class="tag">REST API</span><span class="tag">iOS/Android</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">02</div>
+          <div class="proj-domain">Healthcare</div>
+        </div>
+        <h4>Healthcare Diagnostic App — G6PD Testing</h4>
+        <p>Flutter-based medical app performing G6PD diagnostic tests via Bluetooth-enabled devices, with QR scanning and real-time sync between device and app.</p>
+        <div class="proj-tags">
+          <span class="tag">Bluetooth</span><span class="tag">QR Scanning</span><span class="tag">Firebase</span><span class="tag">Provider</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">03</div>
+          <div class="proj-domain">Education</div>
+        </div>
+        <h4>Adventus.io — Student Recruitment Platform</h4>
+        <p>Cross-platform app for an international student recruitment platform, with document uploads, counselor–student messaging, and real-time notifications. Live on Google Play and the App Store.</p>
+        <div class="proj-tags">
+          <span class="tag">GraphQL</span><span class="tag">Provider</span><span class="tag">GetX</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-top">
+          <div class="proj-icon">04</div>
+          <div class="proj-domain">Enterprise</div>
+        </div>
+        <h4>DigiHR — Human Resource Management System</h4>
+        <p>Flutter HRMS app streamlining employee lifecycle management: attendance tracking, leave management, secure auth, document uploads, and HR reporting dashboards.</p>
+        <div class="proj-tags">
+          <span class="tag">Flutter</span><span class="tag">Dashboards</span><span class="tag">Secure Auth</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Have a mobile app that needs to ship?</h2>
+    <p>Open to Flutter and mobile development opportunities across healthcare, education, government, and beyond.</p>
+    <div class="contact-links">
+      <a href="mailto:poojamolawade4@gmail.com">poojamolawade4@gmail.com</a>
+      <a href="https://www.linkedin.com/in/pooja-molawade-175b11197" target="_blank" rel="noopener">LinkedIn</a>
+      <span>Pune, Maharashtra, India</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Pooja Molawade — Mobile Application Developer · Pune, Maharashtra, India
+</footer>
+
+</body>
+</html>
